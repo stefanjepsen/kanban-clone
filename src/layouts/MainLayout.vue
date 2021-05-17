@@ -39,8 +39,17 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" bordered content-class="bg-grey-1">
-      <q-icon class="q-pa-md" name="fas fa-dove" size="lg" color="primary" />
+    <q-drawer
+      v-model="leftDrawerOpen"
+      bordered
+      overlay
+      content-class="bg-grey-1"
+    >
+      
+      <div class="text-right">
+        <q-btn flat @click="leftDrawerOpen = !leftDrawerOpen"><strong>X</strong></q-btn>
+      </div>
+
       <q-list>
         <q-item to="/" clickable v-ripple exact>
           <q-item-section avatar>
@@ -84,24 +93,6 @@
             <q-icon name="how_to_reg" size="sm" />
           </q-item-section>
           <q-item-section class="text-h6 text-weight-bold">Test</q-item-section>
-        </q-item>
-
-        <q-item to="/Login" clickable v-ripple exact>
-          <q-item-section avatar>
-            <q-icon name="person" size="sm" />
-          </q-item-section>
-          <q-item-section class="text-h6 text-weight-bold"
-            >Login</q-item-section
-          >
-        </q-item>
-
-        <q-item to="/Register" clickable v-ripple exact>
-          <q-item-section avatar>
-            <q-icon name="how_to_reg" size="sm" />
-          </q-item-section>
-          <q-item-section class="text-h6 text-weight-bold"
-            >Register</q-item-section
-          >
         </q-item>
 
         <q-item to="/Secret" clickable v-ripple exact>

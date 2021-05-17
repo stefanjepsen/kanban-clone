@@ -70,7 +70,7 @@ export default {
     var setWithMerge = cityRef.set(
       {
         capital: true,
-        diller: false
+        diller: false,
       },
       { merge: true }
     );
