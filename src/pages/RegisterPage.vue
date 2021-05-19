@@ -103,10 +103,25 @@ export default {
     };
   },
   methods: {
+    /*     pressed() {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then(() => {
+          console.log("It works");
+          this.$router.replace({ name: "Secret" });
+        })
+        .catch((error) => (this.error = error));
+    }, */
     pressed() {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
+        .then((cred) => {
+          return db.collection("users").doc(cred.user.uid).set({
+            username: this.username,
+          });
+        })
         .then(() => {
           console.log("It works");
           this.$router.replace({ name: "Secret" });

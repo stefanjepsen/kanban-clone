@@ -50,6 +50,10 @@ export default {
         }
       });
     });
+
+  
+
+const alovelaceDocumentRef = doc(db, 'users', 'alovelace');
     // Add a new document in collection "cities"
     db.collection("cities")
       .doc("LA")
@@ -75,6 +79,7 @@ export default {
       { merge: true }
     );
   },
+  
 
   /*   data: () => ({
     events: [],

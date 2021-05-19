@@ -12,6 +12,8 @@
         />
 
         <q-toolbar-title>{{ $route.name }} </q-toolbar-title>
+        <q-toolbar-title>{{  }} </q-toolbar-title>
+
         <q-toolbar-title class="text-right">
           Logged in &bull;
           <span class="q-pa-sm" v-if="loggedIn">Yes</span>
@@ -45,9 +47,10 @@
       overlay
       content-class="bg-grey-1"
     >
-      
       <div class="text-right">
-        <q-btn flat @click="leftDrawerOpen = !leftDrawerOpen"><strong>X</strong></q-btn>
+        <q-btn flat @click="leftDrawerOpen = !leftDrawerOpen"
+          ><strong>X</strong></q-btn
+        >
       </div>
 
       <q-list>
@@ -103,6 +106,15 @@
             >Secret</q-item-section
           >
         </q-item>
+
+        <q-item to="/TestPage" clickable v-ripple exact>
+          <q-item-section avatar>
+            <q-icon name="lightbulb" class="lightbulb" size="sm" />
+          </q-item-section>
+          <q-item-section class="text-h6 text-weight-bold"
+            >Test Board Page</q-item-section
+          >
+        </q-item>
       </q-list>
     </q-drawer>
 
@@ -113,18 +125,37 @@
 </template>
 
 <script>
+import { db, auth } from "../boot/firebase";
+
 import firebase from "firebase";
+import "firebase/auth";
 export default {
   name: "MainLayout",
+
   created() {
     firebase.auth().onAuthStateChanged((user) => {
-      this.loggedIn = !!user;
-      /*  if (user) {
+      //this.loggedIn = !!user;
+
+
+      if (user) {
         this.loggedIn = true;
+        var user = firebase.auth().currentUser;
+
+        var docRef = db.collection("users").doc(user.uid);
+
+        docRef.get().then((doc) => {
+          if (doc.exists) {
+            console.log("Document data:", doc.data());
+          } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+          }
+        });
       } else {
         this.loggedIn = false;
-      } */
+      }
     });
+    
   },
   data() {
     return {
@@ -133,6 +164,7 @@ export default {
       signedOut: false,
     };
   },
+
   methods: {
     async signOut() {
       try {
